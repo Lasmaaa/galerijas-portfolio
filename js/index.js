@@ -5,13 +5,9 @@ const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
 function setTheme(theme) {
     document.documentElement.dataset.theme = theme;
     document.documentElement.style.colorScheme = theme;
-
     if (modeToggle) {
         const darkMode = theme === "dark";
-        const icon = modeToggle.querySelector("img");
-        if (icon) {
-            icon.src = darkMode ? "../images/sun.png" : "../images/moon.png";
-        }
+        modeToggle.querySelector("img").src = darkMode ? "../images/sun.png" : "../images/moon.png";
         modeToggle.setAttribute("aria-label", darkMode ? "Switch to light theme" : "Switch to dark theme");
     }
 }
@@ -28,38 +24,32 @@ document.querySelectorAll("[data-year]").forEach((element) => {
     element.textContent = new Date().getFullYear();
 });
 
-const skillSnippets = {
-    HTML: `<section class="exhibit">\n  <h2>Where code becomes art.</h2>\n</section>`,
-    CSS: `.museum-card {\n  display: grid;\n  border: 1px solid #d5a96c;\n}`,
-    JavaScript: `const museum = document.querySelector('#gallery');\nmuseum.addEventListener('click', openExhibit);`,
-    Laravel: `Route::get('/exhibits', [ExhibitController::class, 'index']);`,
-    MySQL: `SELECT title, category FROM exhibits WHERE published = 1;`
-};
+const contactBtn = document.getElementById("contact-btn");
 
-const skillItems = document.querySelectorAll("#skill-list span");
-const codeBox = document.getElementById("skill-code-box");
-const codeTitle = document.getElementById("skill-code-title");
-const codeContent = document.getElementById("skill-code-content");
+contactBtn?.addEventListener("click", (e) => {
+    e.preventDefault();
+    e.stopPropagation();
 
-skillItems.forEach((item) => {
-    item.addEventListener("click", () => {
-        const skill = item.dataset.skill;
-        const isAlreadyActive = item.classList.contains("active-skill");
+    const email = "ipa24.l.surgunte@vtdt.edu.lv";
+    const subject = encodeURIComponent("Let's create something");
+    const mailtoUrl = `mailto:${email}?subject=${subject}`;
 
-        skillItems.forEach((el) => el.classList.remove("active-skill"));
+    let mailAppOpened = false;
+    const handleBlur = () => {
+        mailAppOpened = true;
+    };
 
-        if (isAlreadyActive) {
-            codeBox?.classList.remove("visible");
-            return;
+    window.addEventListener("blur", handleBlur, { once: true });
+    window.location.href = mailtoUrl;
+
+    setTimeout(() => {
+        window.removeEventListener("blur", handleBlur);
+        if (!mailAppOpened) {
+            window.open(
+                `https://mail.google.com/mail/?view=cm&fs=1&to=${email}&su=${subject}`,
+                "_blank",
+                "noopener,noreferrer"
+            );
         }
-
-        item.classList.add("active-skill");
-        if (codeTitle) codeTitle.textContent = `${skill} — CODE SNIPPET`;
-        if (codeContent) codeContent.textContent = skillSnippets[skill] || "";
-        codeBox?.classList.add("visible");
-    });
+    }, 600);
 });
-
-function redirect() {
-    window.location.href = "mailto:ipa24.l.surgunte@vtdt.edu.lv";
-}
