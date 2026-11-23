@@ -126,6 +126,10 @@
         .my-story-block p + p {
             margin-top: 0.85rem;
         }
+        #exhibit-modal[aria-hidden="true"] {
+            display: none;
+            pointer-events: none;
+        }
     </style>
 </head>
 
@@ -281,7 +285,7 @@
         <section class="museum-contact" id="contact">
             <p class="eyebrow">THE NEXT EXHIBITION COULD BE YOURS</p>
             <h2>Have an idea?</h2>
-            <a href="mailto:ipa24.l.surgunte@vtdt.edu.lv" class="museum-enter">
+            <a href="mailto:ipa24.l.surgunte@vtdt.edu.lv?subject=Let's%20create%20something" id="contact-btn" class="museum-enter">
                 LET'S CREATE SOMETHING →
             </a>
         </section>
