@@ -20,6 +20,11 @@ modeToggle?.addEventListener("click", () => {
     setTheme(nextTheme);
 });
 
+function redirect()
+{
+    window.location.href = "mailto:ipa24.l.surgunte@vtdt.edu.lv";
+}
+
 document.querySelectorAll("[data-year]").forEach((element) => {
     element.textContent = new Date().getFullYear();
 });
